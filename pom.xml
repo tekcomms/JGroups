@@ -5,7 +5,8 @@
     <artifactId>jgroups</artifactId>
     <packaging>bundle</packaging>
     <name>JGroups</name>
-    <version>2.12.4.Final-TEK</version>
+    <!-- Customized jgroups version with fix of JGRP-1464 and JGRP-1420 -->
+    <version>2.12.4.Final-TEK-1464-1420</version>
     <url>http://www.jgroups.org</url>
     <description>
         Reliable cluster communication toolkit

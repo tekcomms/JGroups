@@ -8,6 +8,7 @@ import org.jgroups.util.TimeScheduler;
 import org.jgroups.util.Util;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -76,7 +77,7 @@ public class MERGE2 extends Protocol {
 
     private View view;
 
-    private final Set<Address> members=new HashSet<Address>();
+    private final Set<Address> members=Collections.newSetFromMap(new ConcurrentHashMap<Address, Boolean>());
 
     private final Set<Address> merge_candidates=new CopyOnWriteArraySet<Address>();
     

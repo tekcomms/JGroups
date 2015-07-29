@@ -19,8 +19,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Method;
-import java.net.DatagramSocket;
-import java.net.ServerSocket;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -2105,9 +2103,6 @@ public class JChannel extends Channel {
                     Map<String, Object> tmp_info=getInfo();
                     map.put("info", tmp_info != null? Util.mapToString(tmp_info) : "null");
                 }
-                if(key.equals("socks")) {
-                    map.put("socks", getOpenSockets());
-                }
                 if(key.startsWith("invoke") || key.startsWith("op")) {
                     int index=key.indexOf("=");
                     if(index != -1) {
@@ -2134,39 +2129,7 @@ public class JChannel extends Channel {
         }
 
         public String[] supportedKeys() {
-            return new String[]{"jmx", "info", "invoke=<operation>[<args>]", "\nop=<operation>[<args>]", "socks"};
-        }
-
-        String getOpenSockets() {
-            Map<Object, String> socks=getSocketFactory().getSockets();
-            TP transport=getProtocolStack().getTransport();
-            if(transport != null && transport.isSingleton()) {
-                Map<Object,String> tmp=transport.getSocketFactory().getSockets();
-                if(tmp != null)
-                    socks.putAll(tmp);
-            }
-
-            StringBuilder sb=new StringBuilder();
-            if(socks != null) {
-                for(Map.Entry<Object,String> entry: socks.entrySet()) {
-                    Object key=entry.getKey();
-                    if(key instanceof ServerSocket) {
-                        ServerSocket tmp=(ServerSocket)key;
-                        sb.append(tmp.getInetAddress()).append(":").append(tmp.getLocalPort())
-                                .append(" ").append(entry.getValue()).append(" [tcp]");
-                    }
-                    else if(key instanceof DatagramSocket) {
-                        DatagramSocket sock=(DatagramSocket)key;
-                        sb.append(sock.getLocalAddress()).append(":").append(sock.getLocalPort())
-                                .append(" ").append(entry.getValue()).append(" [udp]");
-                    }
-                    else {
-                        sb.append(key).append(" ").append(entry.getValue());
-                    }
-                    sb.append("\n");
-                }
-            }
-            return sb.toString();
+            return new String[]{"jmx", "info", "invoke=<operation>[<args>]", "\nop=<operation>[<args>]"};
         }
 
         /**

@@ -6,7 +6,8 @@
         build.xml file for JGroups. Needs Ant (jakarta.apache.org) to run
     </description>
 
-    <property name="version" value="2.12.4.Final-TEK"/>
+    <!-- Customized jgroups version with fix of JGRP-1464 and JGRP-1420 -->
+    <property name="version" value="2.12.4.Final-TEK-1464-1420"/>
     <property name="build.properties.file" value="build.properties"/>
     <property file="${build.properties.file}"/>
     <property name="root.dir" value="${basedir}"/>
@@ -164,7 +165,7 @@
     <target name="jgroups-sources.jar"
             description="Creates the jgroups-sources.jar. Includes only core source files, no demos, no tests">
         <mkdir dir="${dist.dir}"/>
-        <jar jarfile="${dist.dir}/jgroups-sources.jar"
+        <jar jarfile="${dist.dir}/jgroups-sources-${version}.jar"
              basedir="${src.dir}"
              manifest="${conf.dir}/manifest.mf"
              includes="org/jgroups/**">
