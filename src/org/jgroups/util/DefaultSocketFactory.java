@@ -86,9 +86,5 @@ public class DefaultSocketFactory implements SocketFactory {
         Util.close(sock);
     }
 
-    public Map<Object,String> getSockets() {
-        return null;
-    }
-
 
 }

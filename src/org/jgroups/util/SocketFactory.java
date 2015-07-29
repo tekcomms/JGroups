@@ -44,12 +44,4 @@ public interface SocketFactory {
     void close(Socket sock) throws IOException;
     void close(ServerSocket sock) throws IOException;
     void close(DatagramSocket sock);
-    
-
-    /**
-     * Returns all open sockets. This method can be used to list or close all open sockets.
-     * @return A map of open sockets; keys are Sockets, ServerSockets, DatagramSockets or MulticastSockets, values are
-     * the service names.
-     */
-    Map<Object,String> getSockets();
 }
